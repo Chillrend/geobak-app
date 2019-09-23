@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="heading_extra">48sp</dimen>
+    <dimen name="heading_1">32sp</dimen>
+    <dimen name="heading_2">28sp</dimen>
+    <dimen name="heading_3">24sp</dimen>
+    <dimen name="heading_4">18sp</dimen>
+    <dimen name="medium_text">14sp</dimen>
+    <dimen name="writings">12sp</dimen>
+    <dimen name="placeholderTextHeight">8dp</dimen>
+
+    <dimen name="extra_large_spacing">25dp</dimen>
+    <dimen name="large_spacing">15dp</dimen>
+    <dimen name="medium_spacing">10dp</dimen>
+    <dimen name="small_spacing">5dp</dimen>
+</resources>
