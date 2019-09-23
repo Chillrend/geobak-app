@@ -8,34 +8,13 @@
               android:orientation="vertical"
               tools:context=".fragment.FragmentRegister">
 
-    <LinearLayout
-            android:id="@+id/logo_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:transitionName="@string/logoTransition">
-        <ImageView
-                android:id="@+id/logo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_logo_only"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"
-                android:text="Geobak"
-                android:textColor="@color/white"
-                android:textSize="@dimen/heading_1"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="Certainty to find each other"
-                android:textColor="@color/white"
-                android:textSize="@dimen/heading_4"/>
-    </LinearLayout>
+    <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:transitionName="@string/logoTransition"
+            android:src="@drawable/ic_real_icon"/>
 
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

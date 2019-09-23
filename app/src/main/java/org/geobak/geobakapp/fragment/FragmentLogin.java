@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -49,11 +50,8 @@ public class FragmentLogin extends Fragment {
 
     private Button register_btn;
 
-    public LinearLayout getActivity_logo_wrapper() {
-        return activity_logo_wrapper;
-    }
 
-    private LinearLayout activity_logo_wrapper;
+    private ImageView logo_image;
 
     private FragmentManager mFragmentManager;
 
@@ -95,7 +93,7 @@ public class FragmentLogin extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_login, container, false);
         register_btn = view.findViewById(R.id.register_button);
-        activity_logo_wrapper = view.findViewById(R.id.logo_wrapper);
+        logo_image = view.findViewById(R.id.logo_image);
         return view;
     }
 
@@ -127,7 +125,7 @@ public class FragmentLogin extends Fragment {
         enterFade.setDuration(FADE_DEFAULT_TIME);
         ((Fragment) fr).setEnterTransition(enterFade);
 
-        View logo = activity_logo_wrapper;
+        View logo = logo_image;
         fragmentTransaction.addSharedElement(logo, logo.getTransitionName());
         fragmentTransaction.replace(R.id.frame_layout, (Fragment) fr);
         fragmentTransaction.commitAllowingStateLoss();
