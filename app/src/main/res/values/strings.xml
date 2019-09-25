@@ -10,4 +10,14 @@
     <string name="address">Address</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="logoTransition">logoTransition</string>
+    <string name="title_activity_maps_main">Map</string>
+    <string name="search">Search</string>
+    <string name="type_restaurant">Type restaurant/tenant here..</string>
+    <string name="seller_name">Seller name</string>
+    <string name="distance">Distance</string>
+    <string name="Price">Price</string>
+    <string name="shipping_cost">Shipping Cost</string>
+    <string name="rating">Rating</string>
+    <string name="total_price">Total Price</string>
+    <string name="order">Order</string>
 </resources>

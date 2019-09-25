@@ -13,4 +13,6 @@
     <dimen name="large_spacing">15dp</dimen>
     <dimen name="medium_spacing">10dp</dimen>
     <dimen name="small_spacing">5dp</dimen>
+
+    <dimen name="peeker_size">30dp</dimen>
 </resources>

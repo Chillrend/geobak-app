@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#00009d</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="sheetColor">#DCE9FF</color>
+
+    <color name="starColor">#FDCC0D</color>
+
     <color name="errorColor">#B00020</color>
     <color name="password_toggler">#FFFFFF</color>
 
