@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/large_spacing"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+            android:id="@+id/tenant_image_rv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_fork_n_spoon"/>
+    <LinearLayout
+            android:layout_marginLeft="@dimen/medium_spacing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/tenant_product_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:text="Sate Babiq"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_spacing"
+                android:orientation="horizontal">
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/seller_name"/>
+                <TextView
+                        android:id="@+id/seller_name_rv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Joshua Prima"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/medium_spacing"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/Price"/>
+                <TextView
+                        android:id="@+id/price_rv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Rp. 20.000"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+            android:id="@+id/separator"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/large_spacing"
+            android:layout_marginRight="@dimen/large_spacing"
+            android:background="#ACB1BA"/>
+
+    <LinearLayout
+            android:id="@+id/wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal|center_vertical"
+            >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/distance"/>
+        <TextView
+                android:id="@+id/distance_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400 Meter"/>
+        <RatingBar
+                android:id="@+id/tenant_rating_bar_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tenant_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/small_spacing"
+                android:progressTint="@color/starColor"
+                android:secondaryProgressTint="@color/starColor"
+                android:indeterminateTint="@color/white"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:rating="4.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:isIndicator="true"/>
+    </LinearLayout>
+
+</LinearLayout>
