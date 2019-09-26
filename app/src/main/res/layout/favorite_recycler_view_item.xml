@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+                android:background="@color/sheetColor"
+                android:padding="@dimen/medium_spacing"
+              android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/tenant_product_fav_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textSize="@dimen/heading_4"
+            android:text="Nasi Goreng Tektek" />
+    <ImageView
+            android:id="@+id/tenant_image_fav_rv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_fork_n_spoon"
+            android:layout_below="@id/tenant_product_fav_rv"/>
+    <LinearLayout
+            android:id="@+id/fav_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_spacing"
+            android:orientation="vertical"
+            android:layout_below="@id/tenant_product_fav_rv"
+            android:layout_toRightOf="@id/tenant_image_fav_rv">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/seller_name"/>
+        <TextView
+                android:id="@+id/seller_name_fav_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pak Hedar"/>
+
+        <TextView
+                android:id="@+id/price_fav_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. 20000"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/tenant_product_fav_rv"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/heading_4"
+                android:text="@string/rating"/>
+
+        <TextView
+                android:id="@+id/tenant_rating_fav_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/heading_3"
+                android:text="4.5"/>
+        <Button
+                android:id="@+id/order_btn_fav_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:minHeight="32dp"
+                android:background="@drawable/searchbar_button_background"
+                android:text="@string/order"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -20,4 +20,9 @@
     <string name="rating">Rating</string>
     <string name="total_price">Total Price</string>
     <string name="order">Order</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="favorite">Favorite</string>
+    <string name="account">Account</string>
+    <string name="name">S</string>
 </resources>

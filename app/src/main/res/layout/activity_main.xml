@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,16 +8,20 @@
         android:gravity="center_horizontal|center_vertical"
         tools:context=".MainActivity">
 
-    <Button
-            android:id="@+id/goToLogin"
-            android:layout_width="wrap_content"
+    <FrameLayout
+            android:id="@+id/main_content_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="go to login page"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <Button
-            android:id="@+id/goToMaps"
-            android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="go to maps page"/>
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:menu="@menu/bottom_navigation_menu" />
 
-</LinearLayout>
+</RelativeLayout>
