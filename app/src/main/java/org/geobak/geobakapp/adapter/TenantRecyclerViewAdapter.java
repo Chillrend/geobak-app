@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import org.geobak.geobakapp.R;
 import org.geobak.geobakapp.model.Tenant;
+import org.geobak.geobakapp.model.favorite.Result;
 import org.geobak.geobakapp.utils.CircleTransform;
 
 import java.util.List;
@@ -36,10 +37,10 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
         }
     }
 
-    private List<Tenant> itemList;
+    private List<Result> itemList;
     private Context ctx;
 
-    public TenantRecyclerViewAdapter(List<Tenant> itemList, Context ctx){
+    public TenantRecyclerViewAdapter(List<Result> itemList, Context ctx){
         this.itemList = itemList;
         this.ctx = ctx;
     }
@@ -57,19 +58,26 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
 
     @Override
     public void onBindViewHolder(final TenantRecyclerViewAdapter.ViewHolder viewHolder, int i){
-        Tenant tenant = itemList.get(i);
+        Result item = itemList.get(i);
 
-        Picasso.get().load(tenant.getImg_url()).transform(new CircleTransform()).into(viewHolder.tenantImage);
-        viewHolder.tenantProduct.setText(tenant.getProduct());
-        viewHolder.sellerName.setText(tenant.getTenant_name());
-        viewHolder.price.setText(tenant.getPrice());
+        if(item.getImage() != null && !item.getImage().trim().equals("")){
+            Picasso.get().load(item.getImage()).transform(new CircleTransform()).into(viewHolder.tenantImage);
+        }else{
+            Picasso.get().load("http://picsum.photos/50/50").transform(new CircleTransform()).into(viewHolder.tenantImage);
+        }
+
+        viewHolder.tenantProduct.setText(item.getNameProduct());
+        viewHolder.sellerName.setText(item.getNameSeller());
+        viewHolder.price.setText(item.getPriceUnit());
 
         //USING GEDUNG TIK LOCATION TO CALCULATE DISTANCE, CHANGE THE 2ND AND 4TH PARAMETER TO USER LOCATION
-        Double distance = getDistance(tenant.getLat(), -6.372550, tenant.getLng() , 106.823974, 10, 10);
+        Double distance = getDistance(Double.parseDouble(item.getLatitude()), -6.372550, Double.parseDouble(item.getLongitude()) , 106.823974, 10, 10);
         int roundedDistance = (int) Math.round(distance);
         viewHolder.distance.setText(String.valueOf(roundedDistance) + " Meters");
 
-        viewHolder.rating.setRating(tenant.getRating());
+        Float ratingDouble = Float.parseFloat(item.getRating());
+
+        viewHolder.rating.setRating(ratingDouble);
 
     }
 

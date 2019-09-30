@@ -1,5 +1,5 @@
 
-package org.geobak.geobakapp.model;
+package org.geobak.geobakapp.model.favorite;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -15,6 +15,22 @@ public class Result {
     @SerializedName("price_unit")
     @Expose
     private String priceUnit;
+
+    @SerializedName("rating")
+    @Expose
+    private String rating;
+
+    @SerializedName("latitude")
+    @Expose
+    private String latitude;
+
+    @SerializedName("longitude")
+    @Expose
+    private String longitude;
+
+    @SerializedName("image")
+    @Expose
+    private String image;
 
     public String getNameProduct() {
         return nameProduct;
@@ -40,4 +56,35 @@ public class Result {
         this.priceUnit = priceUnit;
     }
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

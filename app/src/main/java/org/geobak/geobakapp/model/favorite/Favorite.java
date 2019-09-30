@@ -1,5 +1,5 @@
 
-package org.geobak.geobakapp.model;
+package org.geobak.geobakapp.model.favorite;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -9,13 +9,13 @@ public class Favorite {
 
     @SerializedName("result")
     @Expose
-    private List<org.geobak.geobakapp.model.Result> result = null;
+    private List<Result> result = null;
 
-    public List<org.geobak.geobakapp.model.Result> getResult() {
+    public List<Result> getResult() {
         return result;
     }
 
-    public void setResult(List<org.geobak.geobakapp.model.Result> result) {
+    public void setResult(List<Result> result) {
         this.result = result;
     }
 

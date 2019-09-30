@@ -1,6 +1,6 @@
 package org.geobak.geobakapp.utils;
 
-import org.geobak.geobakapp.model.Favorite;
+import org.geobak.geobakapp.model.favorite.Favorite;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

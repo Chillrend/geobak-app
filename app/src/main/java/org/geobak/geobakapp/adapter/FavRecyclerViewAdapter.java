@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import org.geobak.geobakapp.R;
-import org.geobak.geobakapp.model.Result;
 import org.geobak.geobakapp.model.Tenant;
 import org.geobak.geobakapp.model.TxHistory;
+import org.geobak.geobakapp.model.favorite.Result;
 
 import java.text.DateFormat;
 import java.text.ParseException;

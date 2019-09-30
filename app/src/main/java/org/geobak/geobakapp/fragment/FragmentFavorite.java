@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import org.geobak.geobakapp.model.favorite.Favorite;
+import org.geobak.geobakapp.model.favorite.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,8 +27,6 @@ import retrofit2.Response;
 import com.airbnb.lottie.L;
 import org.geobak.geobakapp.R;
 import org.geobak.geobakapp.adapter.FavRecyclerViewAdapter;
-import org.geobak.geobakapp.model.Favorite;
-import org.geobak.geobakapp.model.Result;
 import org.geobak.geobakapp.model.Tenant;
 import org.geobak.geobakapp.utils.ApiCall;
 import org.geobak.geobakapp.utils.ApiService;
@@ -134,12 +134,6 @@ public class FragmentFavorite extends Fragment {
                 Toast.makeText(getContext(),getString(R.string.error_cant_get_data),Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -148,74 +142,6 @@ public class FragmentFavorite extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-//    private void showProduct(){
-//        JSONObject jsonObject = null;
-//        final List<Tenant> list = new ArrayList<>();
-//
-//
-//        try {
-//            jsonObject = new JSONObject(JSON_STRING);
-//            JSONArray result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY_STORY);
-//
-//            for (int i = 0; i < result.length(); i++) {
-//                try {
-//                    JSONObject jo = result.getJSONObject(i);
-////                    String id = jo.getString(konfigurasi.TAG_ID);
-//                    String product = jo.getString(konfigurasi.TAG_PRODUCT);
-//                    String tenant_name = jo.getString(konfigurasi.TAG_TENANT_NAME);
-//                    String price = jo.getString(konfigurasi.TAG_PRICE);
-//                    String rating = jo.getString(konfigurasi.TAG_RATING);
-//                    list.add(new Tenant(product, tenant_name, price, rating));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            List<Tenant> itemLists = Tenant.populateTenantList();
-//
-//            FavRecyclerViewAdapter favRecyclerViewAdapter = new FavRecyclerViewAdapter(itemLists, getContext());
-//            FavRecyclerViewAdapter favRecyclerViewAdapter = new FavRecyclerViewAdapter(list, getContext());
-//            rv.setAdapter(favRecyclerViewAdapter);
-//            LinearLayoutManager llm = new LinearLayoutManager(getContext());
-//            llm.setOrientation(RecyclerView.VERTICAL);
-//            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(), llm.getOrientation());
-//            rv.setLayoutManager(new LinearLayoutManager(getContext()));
-//            rv.addItemDecoration(dividerItemDecoration);
-//            rv.setAdapter(favRecyclerViewAdapter);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void getJSON(){
-//        class GetJSON extends AsyncTask<Void,Void,String> {
-//
-//            ProgressDialog loading;
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//                loading = ProgressDialog.show(getActivity(),"Mengambil Data","Mohon Tunggu...",false,false);
-//            }
-//
-//            @Override
-//            protected void onPostExecute(String s) {
-//                super.onPostExecute(s);
-//                loading.dismiss();
-//                JSON_STRING = s;
-//                showProduct();
-//            }
-//
-//            @Override
-//            protected String doInBackground(Void... params) {
-//                RequestHandler rh = new RequestHandler();
-//                String s = rh.sendGetRequest(konfigurasi.URL_GET_ALL_MY_PRODUCT);
-//                return s;
-//            }
-//        }
-//        GetJSON gj = new GetJSON();
-//        gj.execute();
-//    }
 
     @Override
     public void onAttach(Context context) {
