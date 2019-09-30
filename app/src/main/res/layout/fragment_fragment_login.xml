@@ -63,6 +63,7 @@
             android:textColor="@color/white"
             android:text="Login"
             android:background="@drawable/button_rounded_corner"/>
+
     <Button
             android:id="@+id/register_button"
             android:layout_width="match_parent"

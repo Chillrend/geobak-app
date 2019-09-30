@@ -1,5 +1,9 @@
 package org.geobak.geobakapp.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,7 @@ public class Tenant implements Serializable {
     private Float rating;
     private Double lat;
     private Double lng;
+    private String JSON_STRING;
 
     public Tenant(String img_url, String product, String tenant_name, String price, Float rating, Double lat, Double lng) {
         this.img_url = img_url;
@@ -22,6 +27,17 @@ public class Tenant implements Serializable {
         this.lat = lat;
         this.lng = lng;
     }
+
+    public Tenant( String product, String tenant_name, String price, String rating) {
+        this.img_url = img_url;
+        this.product = product;
+        this.tenant_name = tenant_name;
+        this.price = price;
+//        this.rating = rating;
+//        this.lat = lat;
+//        this.lng = lng;
+    }
+
 
     public Double getLat() {
         return lat;
@@ -82,6 +98,7 @@ public class Tenant implements Serializable {
 
     //EMULATE API CALL
     public static List<Tenant> populateTenantList(){
+//        JSONObject jsonObject = null;
         List<Tenant> tenants = new ArrayList<>();
         tenants.add(new Tenant("https://picsum.photos/50/50", "Sate Ayam", "Pak Gembul", "Rp. 20.000", new Float(4.5),-6.371975, 106.824409));
         tenants.add(new Tenant("https://picsum.photos/50/50", "Sate Babiq", "Pak Wawa", "Rp. 15.000", new Float(1),-6.372255, 106.824127));
@@ -89,5 +106,28 @@ public class Tenant implements Serializable {
         tenants.add(new Tenant("https://picsum.photos/50/50", "Nasi Goreng Anter Lama", "Pak Hedar", "Rp. 15.000", new Float(5),-6.372428, 106.824135));
 
         return tenants;
+
+
+//        try {
+//            jsonObject = new JSONObject(JSON_STRING);
+//            JSONArray result = jsonObject.getJSONArray(konfigurasi.TAG_JSON_ARRAY_STORY);
+//
+//            for (int i = 0; i < result.length(); i++) {
+//                try {
+//                    JSONObject jo = result.getJSONObject(i);
+//                    String id = jo.getString(konfigurasi.TAG_ID_STORY);
+//                    String product = jo.getString(konfigurasi.TAG_PRODUCT);
+//                    String tenant_name = jo.getString(konfigurasi.TAG_TENANT_NAME);
+//                    String price = jo.getString(konfigurasi.TAG_PRICE);
+//                    String rating = jo.getString(konfigurasi.TAG_RATING);
+//                    String lat = jo.getString(konfigurasi.TAG_LAT);
+//                    String lng = jo.getString(konfigurasi.TAG_LNG);
+//                    populateTenantList().add(new Tenant(id, product, tenant_name, price, rating, lat, lng));
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+
     }
 }

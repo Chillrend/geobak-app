@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import org.geobak.geobakapp.R;
+import org.geobak.geobakapp.model.Result;
 import org.geobak.geobakapp.model.Tenant;
 import org.geobak.geobakapp.model.TxHistory;
 
@@ -37,10 +38,10 @@ public class FavRecyclerViewAdapter extends RecyclerView.Adapter<FavRecyclerView
         }
     }
 
-    private List<Tenant> itemList;
+    private List<Result> itemList;
     private Context ctx;
 
-    public FavRecyclerViewAdapter(List<Tenant> itemList, Context ctx) {
+    public FavRecyclerViewAdapter(List<Result> itemList, Context ctx) {
         this.itemList = itemList;
         this.ctx = ctx;
     }
@@ -53,13 +54,13 @@ public class FavRecyclerViewAdapter extends RecyclerView.Adapter<FavRecyclerView
 
     @Override
     public void onBindViewHolder(final FavRecyclerViewAdapter.ViewHolder viewHolder, int i){
-        Tenant item = itemList.get(i);
+        Result item = itemList.get(i);
 
-        Picasso.get().load(item.getImg_url()).into(viewHolder.fav_tenant_image);
-        viewHolder.fav_tenant_product.setText(item.getProduct());
-        viewHolder.fav_tenant_name.setText(item.getTenant_name());
-        viewHolder.fav_amount_price.setText(item.getPrice());
-        viewHolder.fav_rating.setText(String.valueOf(item.getRating()));
+        Picasso.get().load("https://picsum.photos/50/50").into(viewHolder.fav_tenant_image);
+        viewHolder.fav_tenant_product.setText(item.getNameProduct());
+        viewHolder.fav_tenant_name.setText(item.getNameSeller());
+        viewHolder.fav_amount_price.setText(item.getPriceUnit());
+        viewHolder.fav_rating.setText("5.0");
     }
 
     @Override

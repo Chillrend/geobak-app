@@ -65,7 +65,6 @@ public class TxHistory {
         txHistories.add(new TxHistory("https://picsum.photos/50/50", "Japanese Food", "Izakaya", "29 August 2019 19:40", 15000));
         txHistories.add(new TxHistory("https://picsum.photos/50/50", "Baso Mantab", "Pak Kumis", "29 August 2019 19:40", 10000));
         txHistories.add(new TxHistory("https://picsum.photos/50/50", "Nasi Uduk", "Bu Nasduk", "29 August 2019 19:40", 5000));
-
         return txHistories;
     }
 }

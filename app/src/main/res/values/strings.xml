@@ -25,4 +25,6 @@
     <string name="favorite">Favorite</string>
     <string name="account">Account</string>
     <string name="name">S</string>
+    <string name="google_maps_key">AIzaSyBsQpLVB8oBQeG2IVYVt9zNbYWw2OI_48s</string>
+    <string name="error_cant_get_data">something went wrong..</string>
 </resources>

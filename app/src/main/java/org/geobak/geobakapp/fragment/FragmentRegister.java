@@ -1,13 +1,23 @@
 package org.geobak.geobakapp.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import org.geobak.geobakapp.R;
+
+import java.util.HashMap;
 
 
 /**
@@ -19,6 +29,16 @@ import org.geobak.geobakapp.R;
  * create an instance of this fragment.
  */
 public class FragmentRegister extends Fragment {
+
+    private EditText register_email;
+    private EditText register_full_name;
+    private EditText register_phone_number;
+    private EditText register_address;
+    private EditText register_password;
+    private EditText register_confirm_password;
+    private Button register_button;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,12 +88,102 @@ public class FragmentRegister extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragment_register, container, false);
+
+
+
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        register_button = view.findViewById(R.id.register_button);
+
+        register_email = view.findViewById(R.id.register_email);
+        register_full_name = view.findViewById(R.id.register_full_name);
+        register_phone_number = view.findViewById(R.id.register_phone_number);
+        register_address = view.findViewById(R.id.register_address);
+        register_password = view.findViewById(R.id.register_password);
+        register_confirm_password = view.findViewById(R.id.register_confirm_password);
+
+    }
+    private void addStory() {
+
+        final String mail = register_email.getText().toString().trim();
+        final String name = register_full_name.getText().toString().trim();
+        final String phone = register_phone_number.getText().toString().trim();
+        final String adrs = register_address.getText().toString().trim();
+        final String pswrd = register_password.getText().toString().trim();
+        final String cpswrd = register_confirm_password.getText().toString().trim();
+
+
+        class Addstory extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                Verify();
+
+
+//                loading = ProgressDialog.show(getActivity().this, "Menambahkan...", "Tunggu...", false, false);
+                loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+                Verify();
+            }
+
+
+
+            @Override
+            protected String doInBackground(Void... v) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put(konfigurasi.KEY_EMP_EMAIL, mail);
+                params.put(konfigurasi.KEY_EMP_NAME, name);
+                params.put(konfigurasi.KEY_EMP_PHONE, phone);
+                params.put(konfigurasi.KEY_EMP_ADDRESS, adrs);
+                params.put(konfigurasi.KEY_EMP_PASSWORD, pswrd);
+//                params.put(konfigurasi.KEY_EMP_CPASSWORD, cpswrd);
+
+                RequestHandler rh = new RequestHandler();
+                String res = rh.sendPostRequest(konfigurasi.URL_ADD_USER, params);
+                return res;
+            }
+        }
+
+        Addstory as = new Addstory();
+        as.execute();
+    }
+
+    private boolean Verify(){
+
+        if(register_password.getText().toString().equals(register_confirm_password.getText().toString())){
+            return true;
+        } else{
+            register_confirm_password.setError("Password Do Not Match");
+            return false;
+        }
+    }
+
+    public void onClick(View v) {
+        if(v == register_button){
+            addStory();
+
         }
     }
 
@@ -108,4 +218,6 @@ public class FragmentRegister extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-}
+
+
+    }
