@@ -1,6 +1,7 @@
 package org.geobak.geobakapp.adapter;
 
 import android.content.Context;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,20 @@ import org.geobak.geobakapp.model.Tenant;
 import org.geobak.geobakapp.model.favorite.Result;
 import org.geobak.geobakapp.utils.CircleTransform;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecyclerViewAdapter.ViewHolder> {
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView tenantImage;
         TextView tenantProduct;
         TextView sellerName;
         TextView price;
         TextView distance;
         RatingBar rating;
+        OnTenantClickListener onTenantClickListener;
 
-        public ViewHolder (View itemView){
+        public ViewHolder (View itemView, OnTenantClickListener onTenantClickListener){
             super(itemView);
 
             tenantImage = itemView.findViewById(R.id.tenant_image_rv);
@@ -34,15 +37,50 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
             price = itemView.findViewById(R.id.price_rv);
             distance = itemView.findViewById(R.id.distance_rv);
             rating = itemView.findViewById(R.id.tenant_rating_bar_rv);
+            this.onTenantClickListener = onTenantClickListener;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onTenantClickListener.onTenantClick(getAdapterPosition());
         }
     }
 
-    private List<Result> itemList;
+    private List<Result> itemList = new ArrayList<>();
     private Context ctx;
+    private OnTenantClickListener onTenantClickListener;
+    private Location myLocation;
 
-    public TenantRecyclerViewAdapter(List<Result> itemList, Context ctx){
-        this.itemList = itemList;
+    public Location getMyLocation() {
+        return myLocation;
+    }
+
+    public TenantRecyclerViewAdapter(List<Result> itemList, Context ctx, OnTenantClickListener onTenantClickListener, Location myLocation){
+        for (Result item : itemList) {
+            double distance = getDistance(Double.parseDouble(item.getLatitude()), myLocation.getLatitude(), Double.parseDouble(item.getLongitude()), myLocation.getLongitude(), 10, 10);
+            int rounded_dist = (int) Math.round(distance);
+            if (rounded_dist < 1000) {
+                this.itemList.add(item);
+            }
+        }
         this.ctx = ctx;
+        this.onTenantClickListener = onTenantClickListener;
+        this.myLocation = myLocation;
+    }
+
+    public static List<Result> trimListBasedOnLocation(List<Result> itemList, Location location){
+        List<Result> returnedItem = new ArrayList<>();
+        for (Result item : itemList) {
+            double distance = getDistance(Double.parseDouble(item.getLatitude()), location.getLatitude(), Double.parseDouble(item.getLongitude()), location.getLongitude(), 10, 10);
+            int rounded_dist = (int) Math.round(distance);
+            if (rounded_dist < 1000) {
+                returnedItem.add(item);
+            }
+        }
+
+        return  returnedItem;
     }
 
     @Override
@@ -53,7 +91,7 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bottom_sheet_recycler_view_item, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, onTenantClickListener);
     }
 
     @Override
@@ -71,7 +109,9 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
         viewHolder.price.setText(item.getPriceUnit());
 
         //USING GEDUNG TIK LOCATION TO CALCULATE DISTANCE, CHANGE THE 2ND AND 4TH PARAMETER TO USER LOCATION
-        Double distance = getDistance(Double.parseDouble(item.getLatitude()), -6.372550, Double.parseDouble(item.getLongitude()) , 106.823974, 10, 10);
+        Double myLat = myLocation.getLatitude();
+        Double myLon = myLocation.getLongitude();
+        Double distance = getDistance(Double.parseDouble(item.getLatitude()), myLat, Double.parseDouble(item.getLongitude()) , myLon, 10, 10);
         int roundedDistance = (int) Math.round(distance);
         viewHolder.distance.setText(String.valueOf(roundedDistance) + " Meters");
 
@@ -104,5 +144,9 @@ public class TenantRecyclerViewAdapter extends RecyclerView.Adapter<TenantRecycl
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
         return Math.sqrt(distance);
+    }
+
+    public interface OnTenantClickListener{
+        void onTenantClick(int pos);
     }
 }

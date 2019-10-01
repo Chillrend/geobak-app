@@ -4,6 +4,9 @@ package org.geobak.geobakapp.model.favorite;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Result {
 
     @SerializedName("name_product")
@@ -86,5 +89,24 @@ public class Result {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Result(String nameProduct, String nameSeller, String priceUnit, String rating, String latitude, String longitude, String image) {
+        this.nameProduct = nameProduct;
+        this.nameSeller = nameSeller;
+        this.priceUnit = priceUnit;
+        this.rating = rating;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.image = image;
+    }
+
+    public static List<Result> emulateApiCall(){
+        List<Result> res = new ArrayList<>();
+
+        res.add(new Result("Sate Babiq", "Wawa", "10000", "4.0", "-6.453536", "106.839529", ""));
+        res.add(new Result("Sate Ayam", "Awe", "15000", "3.0", "-6.458507", "106.839329", ""));
+
+        return res;
     }
 }

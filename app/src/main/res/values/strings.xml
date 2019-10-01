@@ -27,4 +27,8 @@
     <string name="name">S</string>
     <string name="google_maps_key">AIzaSyBsQpLVB8oBQeG2IVYVt9zNbYWw2OI_48s</string>
     <string name="error_cant_get_data">something went wrong..</string>
+    <string name="gps_disabled_ask">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="dialog_ask_loc_permission_title">Location required</string>
+    <string name="dialog_ask_loc_permission_description">We need your location to calculate the price to deliver the goods</string>
+    <string name="choose_partner">Choose one of our partner below..</string>
 </resources>

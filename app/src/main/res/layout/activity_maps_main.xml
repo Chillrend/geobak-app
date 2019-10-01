@@ -6,6 +6,7 @@
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
                                                      tools:context=".MapsMainActivity">
+
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
@@ -16,17 +17,20 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
         <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
-            <ImageButton android:id="@+id/back_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                         android:src="@drawable/ic_arrow_back_white_24dp"
-                         android:background="@null"
-                         android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"/>
+
+            <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_back_white_24dp"
+                    android:background="@null"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
 
             <ImageView
                     android:layout_width="wrap_content"
@@ -34,16 +38,18 @@
                     android:contentDescription="Geobak Logo"
                     android:src="@drawable/ic_logo_wide"/>
 
-            <ImageButton android:id="@+id/get_location_button"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:src="@drawable/ic_gps_fixed_white_24dp"
-                         android:background="@null"
-                         android:layout_alignParentRight="true"
+            <ImageButton
+                    android:id="@+id/get_location_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_gps_fixed_white_24dp"
+                    android:background="@null"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"/>
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
             android:id="@+id/main_content_wrapper"
             android:layout_width="match_parent"
@@ -53,225 +59,242 @@
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.google.android.gms.maps.SupportMapFragment" />
-
+                android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <com.kennyc.view.MultiStateView
             android:id="@+id/map_place_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/large_spacing"
             android:layout_alignParentBottom="true"
             android:background="@drawable/maps_place_detail_background"
+            map:msv_emptyView="@layout/state_empty_tenant_detail"
             app:layout_anchor="@id/bottom_sheet"
             map:layout_anchorGravity="bottom">
-        <LinearLayout
+
+        <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            <RelativeLayout
-                    android:id="@+id/image_and_name_wrapper"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/medium_spacing">
-                <ImageView
-                        android:id="@+id/tenant_image"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_fork_n_spoon"/>
-
-                <TextView
-                        android:id="@+id/item_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/small_spacing"
-                        android:layout_toRightOf="@id/tenant_image"
-                        android:fontFamily="sans-serif"
-                        android:text="Sate Babiq"/>
-
-                <ImageView
-                        android:id="@+id/star_rating"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_below="@id/item_name"
-                        android:layout_toRightOf="@id/tenant_image"
-                        android:contentDescription="@string/rating"
-                        android:src="@drawable/ic_star_24dp"
-                        android:layout_marginLeft="@dimen/small_spacing"/>
-
-                <TextView
-                        android:id="@+id/tenant_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/star_rating"
-                        android:layout_below="@id/item_name"
-                        android:textSize="12sp"
-                        android:fontFamily="sans-serif-light"
-                        android:text="4.5"
-                        android:layout_marginLeft="@dimen/small_spacing"/>
-            </RelativeLayout>
-
+                android:layout_height="wrap_content">
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                 <RelativeLayout
-                        android:id="@+id/tenant_name_and_range"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    <TextView
-                            android:id="@+id/seller_name_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:text="@string/seller_name"/>
-                    <TextView
-                            android:id="@+id/seller_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/seller_name_text"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Joshua Prima"/>
-
-                    <TextView
-                            android:id="@+id/distance_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/seller_name"
-                            android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:text="@string/distance"/>
-                    <TextView
-                            android:id="@+id/distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/distance_text"
-                            android:fontFamily="sans-serif-light"
-                            android:text="400m"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                        android:id="@+id/price_and_shipping_costs"
+                        android:id="@+id/image_and_name_wrapper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/medium_spacing"
-                        >
-                    <TextView
-                            android:id="@+id/price_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/medium_spacing">
+
+                    <ImageView
+                            android:id="@+id/tenant_image"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:layout_alignParentLeft="true"
-                            android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:text="@string/Price"/>
-                    <TextView
-                            android:id="@+id/price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/price_text"
-                            android:fontFamily="sans-serif-light"
-                            android:text="Rp. 24K"/>
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_fork_n_spoon"/>
 
                     <TextView
-                            android:id="@+id/shipping_cost_text"
+                            android:id="@+id/item_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/price"
+                            android:layout_marginLeft="@dimen/small_spacing"
+                            android:layout_toRightOf="@id/tenant_image"
                             android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:text="@string/shipping_cost"/>
+                            android:text="Sate Babiq"/>
+
+                    <ImageView
+                            android:id="@+id/star_rating"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_below="@id/item_name"
+                            android:layout_toRightOf="@id/tenant_image"
+                            android:contentDescription="@string/rating"
+                            android:src="@drawable/ic_star_24dp"
+                            android:layout_marginLeft="@dimen/small_spacing"/>
+
                     <TextView
-                            android:id="@+id/shipping_cost"
+                            android:id="@+id/tenant_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/shipping_cost_text"
+                            android:layout_toRightOf="@id/star_rating"
+                            android:layout_below="@id/item_name"
+                            android:textSize="12sp"
                             android:fontFamily="sans-serif-light"
-                            android:text="Rp. 4K"/>
+                            android:text="4.5"
+                            android:layout_marginLeft="@dimen/small_spacing"/>
                 </RelativeLayout>
-
-                <View
-                        android:id="@+id/separator"
-                        android:layout_width="2dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/extra_large_spacing"
-                        android:layout_marginRight="@dimen/extra_large_spacing"
-                        android:background="#ACB1BA"/>
 
 
                 <LinearLayout
-                        android:id="@+id/total_price_wrappper"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_horizontal|center_vertical"
-                        >
-                    <TextView
-                            android:id="@+id/total_price_text"
+                        android:orientation="horizontal">
+
+                    <RelativeLayout
+                            android:id="@+id/tenant_name_and_range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                                android:id="@+id/seller_name_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:fontFamily="sans-serif"
+                                android:textStyle="bold"
+                                android:text="@string/seller_name"/>
+
+                        <TextView
+                                android:id="@+id/seller_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/seller_name_text"
+                                android:fontFamily="sans-serif-light"
+                                android:text="Joshua Prima"/>
+
+                        <TextView
+                                android:id="@+id/distance_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/seller_name"
+                                android:fontFamily="sans-serif"
+                                android:textStyle="bold"
+                                android:text="@string/distance"/>
+
+                        <TextView
+                                android:id="@+id/distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/distance_text"
+                                android:fontFamily="sans-serif-light"
+                                android:text="400m"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:id="@+id/price_and_shipping_costs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/total_price"/>
-                    <TextView
-                            android:id="@+id/total_price"
+                            android:layout_marginLeft="@dimen/medium_spacing"
+                            >
+
+                        <TextView
+                                android:id="@+id/price_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:fontFamily="sans-serif"
+                                android:textStyle="bold"
+                                android:text="@string/Price"/>
+
+                        <TextView
+                                android:id="@+id/price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/price_text"
+                                android:fontFamily="sans-serif-light"
+                                android:text="Rp. 24K"/>
+
+                        <TextView
+                                android:id="@+id/shipping_cost_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/price"
+                                android:fontFamily="sans-serif"
+                                android:textStyle="bold"
+                                android:text="@string/shipping_cost"/>
+
+                        <TextView
+                                android:id="@+id/shipping_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/shipping_cost_text"
+                                android:fontFamily="sans-serif-light"
+                                android:text="Rp. 4K"/>
+                    </RelativeLayout>
+
+                    <View
+                            android:id="@+id/separator"
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/extra_large_spacing"
+                            android:layout_marginRight="@dimen/extra_large_spacing"
+                            android:background="#ACB1BA"/>
+
+
+                    <LinearLayout
+                            android:id="@+id/total_price_wrappper"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Rp. 24.000"/>
-                    <Button
-                            android:id="@+id/send_signal_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:layout_marginTop="@dimen/small_spacing"
-                            android:padding="@dimen/small_spacing"
-                            android:background="@drawable/searchbar_button_background"
-                            android:text="@string/order"
-                            android:textColor="@color/white"
-                            android:textAllCaps="true"
-                            />
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal|center_vertical"
+                            >
+
+                        <TextView
+                                android:id="@+id/total_price_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/total_price"/>
+
+                        <TextView
+                                android:id="@+id/total_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rp. 24.000"/>
+
+                        <Button
+                                android:id="@+id/send_signal_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="32dp"
+                                android:layout_marginTop="@dimen/small_spacing"
+                                android:padding="@dimen/small_spacing"
+                                android:background="@drawable/searchbar_button_background"
+                                android:text="@string/order"
+                                android:textColor="@color/white"
+                                android:textAllCaps="true"
+                                />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
+        </RelativeLayout>
 
-        </LinearLayout>
-
-    </RelativeLayout>
+    </com.kennyc.view.MultiStateView>
 
     <LinearLayout
-                  android:id="@+id/bottom_sheet"
-                  android:layout_width="match_parent"
-                  android:layout_height="300dp"
-                  android:orientation="vertical"
-                  app:behavior_hideable="false"
-                  app:behavior_peekHeight="30dp"
-                  app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:background="@drawable/bottom_sheet_peeker_background"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="30dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
                 android:id="@+id/peeker_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@drawable/bottom_sheet_peeker_background"
                 android:orientation="vertical"
                 android:gravity="center_horizontal|center_vertical">
+
             <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/ic_menu_grey_24dp"/>
         </LinearLayout>
+
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/sheetColor"
+                android:layout_height="match_parent"
                 android:padding="@dimen/medium_spacing"
                 android:orientation="vertical">
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -280,6 +303,7 @@
                     android:weightSum="1.0"
                     android:gravity="center_vertical"
                     android:padding="3dp">
+
                 <EditText
                         android:id="@+id/search_form"
                         android:layout_width="0dp"
@@ -291,6 +315,7 @@
                         android:inputType="text"
                         android:background="@null"
                         android:hint="@string/type_restaurant"/>
+
                 <Button
                         android:id="@+id/search_btn"
                         android:layout_width="0dp"
@@ -311,6 +336,7 @@
                     android:paddingTop="@dimen/small_spacing"
                     android:paddingBottom="@dimen/small_spacing"
                     android:layout_width="wrap_content"
+                    android:background="@color/sheetColor"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
 
