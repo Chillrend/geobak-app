@@ -15,7 +15,7 @@ public class ApiCall {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.47:81/geobak/")
+                .baseUrl("http://192.168.43.18/geobak/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

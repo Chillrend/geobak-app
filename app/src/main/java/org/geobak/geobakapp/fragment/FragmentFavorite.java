@@ -118,7 +118,7 @@ public class FragmentFavorite extends Fragment {
                     LinearLayoutManager llm = new LinearLayoutManager(getContext());
                     llm.setOrientation(RecyclerView.VERTICAL);
                     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(), llm.getOrientation());
-                    rv.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rv.setLayoutManager(llm);
                     rv.addItemDecoration(dividerItemDecoration);
                     rv.setAdapter(favRecyclerViewAdapter);
 

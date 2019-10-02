@@ -60,7 +60,7 @@ public class FavRecyclerViewAdapter extends RecyclerView.Adapter<FavRecyclerView
         viewHolder.fav_tenant_product.setText(item.getNameProduct());
         viewHolder.fav_tenant_name.setText(item.getNameSeller());
         viewHolder.fav_amount_price.setText(item.getPriceUnit());
-        viewHolder.fav_rating.setText("5.0");
+        viewHolder.fav_rating.setText(item.getRating());
     }
 
     @Override

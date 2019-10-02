@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import org.geobak.geobakapp.R;
 import org.geobak.geobakapp.model.Tenant;
 import org.geobak.geobakapp.model.TxHistory;
+import org.geobak.geobakapp.model.history.Hasil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +48,10 @@ public class TxHistoryRecyclerViewAdapter extends RecyclerView.Adapter<TxHistory
         }
     }
 
-    private List<TxHistory> itemList;
+    private List<Hasil> itemList;
     private Context ctx;
 
-    public TxHistoryRecyclerViewAdapter(List<TxHistory> itemList, Context ctx) {
+    public TxHistoryRecyclerViewAdapter(List<Hasil> itemList, Context ctx) {
         this.itemList = itemList;
         this.ctx = ctx;
     }
@@ -69,27 +70,21 @@ public class TxHistoryRecyclerViewAdapter extends RecyclerView.Adapter<TxHistory
 
     @Override
     public void onBindViewHolder(final TxHistoryRecyclerViewAdapter.ViewHolder viewHolder, int i){
-        TxHistory item = itemList.get(i);
+        Hasil item = itemList.get(i);
 
-        Picasso.get().load(item.getImg_url()).into(viewHolder.tx_tenant_image);
-        viewHolder.tx_tenant_product.setText(item.getProduct_name());
-        viewHolder.tx_tenant_name.setText(item.getTenant_name());
-        viewHolder.tx_amount_price.setText(String.valueOf(item.getAmount_price()));
-
-        //TODO: CHANGE THE DATE FORMAT ACCORDING TO RETURNED DATA FROM API
-        DateFormat df = new SimpleDateFormat("dd MMMM yyyy hh:mm");
-
-        DateFormat dfdate = new SimpleDateFormat("dd MMMM yyyy");
-        DateFormat dftime = new SimpleDateFormat("hh:mm");
-        Date date = new Date();
-        try {
-            date = df.parse(item.getTx_date());
-        }catch (ParseException pe){
-            pe.printStackTrace();
+        if(item.getImage().trim().equals("")) {
+            Picasso.get().load("https://picsum.photos/50/50").into(viewHolder.tx_tenant_image);
+        }else{
+            Picasso.get().load(item.getImage()).into(viewHolder.tx_tenant_image);
         }
 
-        viewHolder.tx_date.setText(dfdate.format(date));
-        viewHolder.tx_time.setText(dftime.format(date));
+        viewHolder.tx_tenant_product.setText(item.getNameProduct());
+        viewHolder.tx_tenant_name.setText(item.getNameSeller());
+        viewHolder.tx_amount_price.setText(String.valueOf(item.getPrice()));
+
+
+        viewHolder.tx_date.setText(item.getDateTransaction());
+        viewHolder.tx_time.setText(item.getTimeTransaction());
     }
 
     @Override

@@ -1,9 +1,11 @@
 package org.geobak.geobakapp.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.geobak.geobakapp.R;
 import org.geobak.geobakapp.adapter.TxHistoryRecyclerViewAdapter;
 import org.geobak.geobakapp.model.TxHistory;
+import org.geobak.geobakapp.model.history.Hasil;
+import org.geobak.geobakapp.model.history.History;
+import org.geobak.geobakapp.utils.ApiCall;
+import org.geobak.geobakapp.utils.ApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.List;
 
@@ -83,10 +92,32 @@ public class FragmentHistory extends Fragment {
 
         List<TxHistory> item = TxHistory.populateTxHistory();
 
-        TxHistoryRecyclerViewAdapter adapter = new TxHistoryRecyclerViewAdapter(item, getContext());
+        SharedPreferences spf = getActivity().getSharedPreferences(FragmentRegister.USER_SHARED_PREF, Context.MODE_PRIVATE);
+        String email = spf.getString("email", null);
 
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(adapter);
+        ApiService service = ApiCall.getClient().create(ApiService.class);
+        Call<History> call = service.getHistory(email);
+        call.enqueue(new Callback<History>() {
+            @Override
+            public void onResponse(Call<History> call, Response<History> response) {
+                try {
+                    History h = response.body();
+                    List<Hasil> list = h.getHasil();
+
+                    TxHistoryRecyclerViewAdapter adapter = new TxHistoryRecyclerViewAdapter(list, getContext());
+                    rv.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rv.setAdapter(adapter);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<History> call, Throwable t){
+                t.printStackTrace();
+                Toast.makeText(getContext(), "unable to get data..", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

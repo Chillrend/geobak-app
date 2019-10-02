@@ -1,7 +1,10 @@
 package org.geobak.geobakapp.fragment;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import org.geobak.geobakapp.MainActivity;
 import org.geobak.geobakapp.R;
+import org.geobak.geobakapp.utils.ApiCall;
+import org.geobak.geobakapp.utils.ApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.HashMap;
 
@@ -29,6 +39,8 @@ import java.util.HashMap;
  * create an instance of this fragment.
  */
 public class FragmentRegister extends Fragment {
+
+    public static String USER_SHARED_PREF = "USER_SHARED_PREF";
 
     private EditText register_email;
     private EditText register_full_name;
@@ -114,63 +126,12 @@ public class FragmentRegister extends Fragment {
         register_password = view.findViewById(R.id.register_password);
         register_confirm_password = view.findViewById(R.id.register_confirm_password);
 
-    }
-    private void addStory() {
+        register_button.setOnClickListener(this::onClick);
 
-        final String mail = register_email.getText().toString().trim();
-        final String name = register_full_name.getText().toString().trim();
-        final String phone = register_phone_number.getText().toString().trim();
-        final String adrs = register_address.getText().toString().trim();
-        final String pswrd = register_password.getText().toString().trim();
-        final String cpswrd = register_confirm_password.getText().toString().trim();
-
-
-        class Addstory extends AsyncTask<Void, Void, String> {
-
-            ProgressDialog loading;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                Verify();
-
-
-//                loading = ProgressDialog.show(getActivity().this, "Menambahkan...", "Tunggu...", false, false);
-                loading = ProgressDialog.show(getActivity(), "Loading...", "Please wait...", true);
-
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
-                Verify();
-            }
-
-
-
-            @Override
-            protected String doInBackground(Void... v) {
-                HashMap<String, String> params = new HashMap<>();
-                params.put(konfigurasi.KEY_EMP_EMAIL, mail);
-                params.put(konfigurasi.KEY_EMP_NAME, name);
-                params.put(konfigurasi.KEY_EMP_PHONE, phone);
-                params.put(konfigurasi.KEY_EMP_ADDRESS, adrs);
-                params.put(konfigurasi.KEY_EMP_PASSWORD, pswrd);
-//                params.put(konfigurasi.KEY_EMP_CPASSWORD, cpswrd);
-
-                RequestHandler rh = new RequestHandler();
-                String res = rh.sendPostRequest(konfigurasi.URL_ADD_USER, params);
-                return res;
-            }
-        }
-
-        Addstory as = new Addstory();
-        as.execute();
     }
 
-    private boolean Verify(){
+
+    private boolean verifyPassword(){
 
         if(register_password.getText().toString().equals(register_confirm_password.getText().toString())){
             return true;
@@ -182,8 +143,37 @@ public class FragmentRegister extends Fragment {
 
     public void onClick(View v) {
         if(v == register_button){
-            addStory();
+            //Validate form e.g register_full_name.getText().toString().trim().equals("")
+            if(!verifyPassword()) return;
+            ApiService service = ApiCall.getClient().create(ApiService.class);
+            Call<JsonObject> call = service.goRegister(register_full_name.getText().toString(), register_email.getText().toString(), register_phone_number.getText().toString(), register_address.getText().toString(), register_password.getText().toString());
 
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    JsonObject resp = response.body();
+                    if(!resp.get("status").getAsString().equals("200")){
+                        Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    String email = resp.get("email").getAsString();
+
+                    SharedPreferences.Editor edit = getActivity().getSharedPreferences(USER_SHARED_PREF, Context.MODE_PRIVATE).edit();
+                    edit.putString("email", email);
+                    edit.apply();
+
+                    Toast.makeText(getContext(), "Register Success, Taking you back to Home screen..", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), MainActivity.class);
+                    getActivity().startActivity(i);
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

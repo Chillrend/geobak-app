@@ -263,27 +263,47 @@ public class MapsMainActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(myLocation).title("My location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         //Emulating API Call
-        results = Result.emulateApiCall();
 
-        results = TenantRecyclerViewAdapter.trimListBasedOnLocation(results, location);
+        ApiService service = ApiCall.getClient().create(ApiService.class);
+        Call<Favorite> call = service.showFavorite();
+        call.enqueue(new Callback<Favorite>() {
+            @Override
+            public void onResponse(Call<Favorite> call, Response<Favorite> response) {
+                try {
+                    Favorite f = response.body();
+                    results = f.getResult();
 
-        tenantRecyclerViewAdapter = new TenantRecyclerViewAdapter(results, ctx, this, location);
+                    results = TenantRecyclerViewAdapter.trimListBasedOnLocation(results, location);
 
-        LinearLayoutManager lm = new LinearLayoutManager(ctx);
+                    tenantRecyclerViewAdapter = new TenantRecyclerViewAdapter(results, ctx, MapsMainActivity.this::onTenantClick, location);
 
-        tenant_rv.setLayoutManager(lm);
-        tenant_rv.setAdapter(tenantRecyclerViewAdapter);
+                    LinearLayoutManager lm = new LinearLayoutManager(ctx);
 
-        for (int i = 0; i < results.size(); i++) {
-            Result tenant = results.get(i);
+                    tenant_rv.setLayoutManager(lm);
+                    tenant_rv.setAdapter(tenantRecyclerViewAdapter);
 
-            LatLng tenantMarker = new LatLng(Double.parseDouble(tenant.getLatitude()), Double.parseDouble(tenant.getLongitude()));
+                    for (int i = 0; i < results.size(); i++) {
+                        Result tenant = results.get(i);
 
-            MarkerOptions markerOptions = new MarkerOptions().position(tenantMarker).title(tenant.getNameProduct());
-            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_tenant_marker));
+                        LatLng tenantMarker = new LatLng(Double.parseDouble(tenant.getLatitude()), Double.parseDouble(tenant.getLongitude()));
 
-            mMap.addMarker(markerOptions);
-        }
+                        MarkerOptions markerOptions = new MarkerOptions().position(tenantMarker).title(tenant.getNameProduct());
+                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_tenant_marker));
+
+                        mMap.addMarker(markerOptions);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(MapsMainActivity.this, "Can't get data..", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Favorite> call, Throwable t) {
+                Toast.makeText(MapsMainActivity.this, "Can't get data..", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
